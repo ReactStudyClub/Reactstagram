@@ -3,13 +3,15 @@
 //withRouter, useRouteMatch, match, 사라짐
 //기존 history의 모든 기능은 useNavigate로 통합되었다
 // match 는 useParams 로 변경
+import BottomTeb from '../components/BottomTeb'
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import userimg from '../imgs/kawai.jpg';
 import { useTodoState, useTodoDispatch, useUID } from '../ContextApi';
 import MyPost from '../components/MyPost'
-
+import {authService} from "../firebaseConfig"
+import Login from '../pages/Login';
 
 const ProfileZone = styled.div`
 width: 100%;
@@ -49,8 +51,7 @@ background-color: #fff;
 
 const MyPage = () => {
 
-  const params = useParams();
-  const location = useLocation();
+  const [login, setLogin] =useState(false);
   const navigate = useNavigate();
   const state = useTodoState();
   const uid = useUID();
@@ -59,8 +60,17 @@ const MyPage = () => {
     navigate('/ProfileEdit');
   }
 
+  const signOut = () =>{ 
+    authService.signOut().then(() => {
+    console.log('Sign-out successful');
+    navigate('/');
+  }).catch((error) => {
+    console.log(error.message );
+  });
+  }
 
-  return (
+
+  return ( 
     <>
       <ProfileZone>
         <UserImg src={state.User[uid].Profile.Userphoto} />
@@ -76,7 +86,9 @@ const MyPage = () => {
 
       </UserZoen>
       <ProfileBtn onClick={goProfileEdit}>프로필 편집</ProfileBtn>
+      <ProfileBtn onClick={signOut}>로그아웃</ProfileBtn>
       <MyPost posts={state.User[uid].UserPost} profile={state.User[uid].Profile}></MyPost>
+      <BottomTeb></BottomTeb>
     </>
     //  <button onClick={() => navigate('/')}>홈으로</button>
   );

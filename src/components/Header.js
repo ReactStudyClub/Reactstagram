@@ -22,9 +22,10 @@ const HeaderBlocknone = styled.header`
 `;
 const HeaderTitle = styled.div`
 cursor: pointer;
-font-size: 19px;
+font-size: 22px;
 font-weight: bold;
 font-family: auto;
+color: #61dafb;
 `;
 
 const HeaderRigthZone = styled.div`

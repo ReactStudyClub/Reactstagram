@@ -15,23 +15,20 @@ import { TodoProvider } from './ContextApi';
 
 const App = () => {
 
-  const [ready,setReady] = useState(true);
-
-  return ready ?  <TodoProvider><Login setReady={setReady} ready={ready}/></TodoProvider> :( 
+  return(
     <TodoProvider>
-    <MainBlock>
-    <Header></Header>
-    <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/Profiles/*"  element={<Profiles />} />
-        <Route path="/Upload" element={<Upload/>}/>
-        <Route path="/MyPage"  element={<MyPage />} />
-        <Route path="/ProfileEdit"  element={<ProfileEdit />} />
-        <Route path='/*' element={ <h1>이 페이지는 존재하지 않습니다. - </h1> }/>
-    </Routes>
-    <BottomTeb></BottomTeb>
-    </MainBlock>
+      <MainBlock>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/Profiles/*" element={<Profiles />} />
+          <Route path="/Upload" element={<Upload />} />
+          <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/ProfileEdit" element={<ProfileEdit />} />
+          <Route path='/*' element={<h1>이 페이지는 존재하지 않습니다. - </h1>} />
+        </Routes>
+      </MainBlock>
     </TodoProvider>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import { firebase_db } from "../firebaseConfig"
-import {useTodoState,useTodoDispatch,useUID} from '../ContextApi';
+import { useTodoState, useTodoDispatch, useUID } from '../ContextApi';
 
 
 const PostBlock = styled.div`
@@ -22,7 +22,6 @@ const ProflieZone = styled.div`
 display: flex;
 padding: 5px;
 align-items: center;
-background: #fdf0ff;
 position: relative;
 
 `;
@@ -30,7 +29,8 @@ const ProflieImg = styled.img`
 width: 35px;
 height: 35px;
 border-radius: 50%;
-border: 3px #405add solid;
+border: 2px #64bfed  solid;
+
 `;
 const ProflieName = styled.p`
 margin:0px;
@@ -54,44 +54,45 @@ font-weight:600;
 const PostImg = styled.img`
 width: 100%;
 height: 300px;
-`;
-
-const PostText = styled.p`
-margin:0px;
 padding: 5px;
 `;
 
+const PostText = styled.p`
+   margin: 0px;
+   padding: 20px;
+   border-bottom: 1px #e0e0e0 solid;
+   font-size: 15px;
+`;
 
-function MyPost({posts,profile}) {
 
-   const postDelete = (postKey)=>{
+function MyPost({ posts, profile }) {
+
+   const postDelete = (postKey) => {
 
       alert("포스트를 삭제합니다");
 
-      
+
       console.log(postKey)
       console.log(profile.Uid)
 
       firebase_db.ref(`users/${profile.Uid}/UserPost/${postKey}`).remove();
 
-      
+
       alert("포스트 삭제완료");
    }
 
-   
+
    return (
       <div>
          {posts && (
             Object.values(posts).reverse().map((posts) => (
                <PostBlock key={posts.postKey}>
                   <ProflieZone>
-                  
-                  <ProflieImg src={profile.Userphoto}></ProflieImg>
-                  <ProflieName>{profile.Username}</ProflieName>
-                  
-                  <ProfileEdit onClick={()=>postDelete(posts.postKey)} >삭제</ProfileEdit>
+                     <ProflieImg src={profile.Userphoto}></ProflieImg>
+                     <ProflieName>{profile.Username}</ProflieName>
+                     <ProfileEdit onClick={() => postDelete(posts.postKey)} >삭제</ProfileEdit>
                   </ProflieZone>
-                  
+
                   <PostImg src={posts.postPic} />
                   <PostText>{posts.postContent}</PostText>
                </PostBlock>
