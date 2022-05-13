@@ -62,6 +62,8 @@ const PostText = styled.p`
    padding: 20px;
    border-bottom: 1px #e0e0e0 solid;
    font-size: 15px;
+   white-space:pre;
+
 `;
 
 
@@ -73,7 +75,9 @@ function Post() {
       firebase_db.ref('posts').orderByChild('date').startAfter(1).once('value').then((snapshot) => {
          setPosts(snapshot.val());
 
-      })
+      });
+      
+      
    }, []);
 
 
@@ -86,11 +90,11 @@ function Post() {
             Object.values(posts).reverse().map((posts) => (
                <PostBlock key={posts.postKey}>
                   <ProflieZone>
-                     <ProflieImg src={posts.postPic}></ProflieImg>
+                     <ProflieImg src={posts.userPhoto}></ProflieImg>
                      <ProflieName>{posts.userName}</ProflieName>
                   </ProflieZone>
                   <PostImg src={posts.postPic} />
-                  <PostText>{posts.postContent}</PostText>
+                  <PostText >{posts.postContent}</PostText>
 
                </PostBlock>
             ))

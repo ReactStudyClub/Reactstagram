@@ -1,18 +1,16 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import CreateUser from '../components/CreateUser';
 import BottomTeb from '../components/BottomTeb';
-function ProfileEdit() {
-  const navigate = useNavigate();
+import { useTodoState, useTodoDispatch, useUID } from '../ContextApi';
 
-  const goBack = () => {
-    const confirm = window.confirm('편집을 완료하셨습니까?')
-    if (confirm) {
-      navigate(-1);
-    }
-  };
-  
-  return (
+function ProfileEdit() {
+  const state = useTodoState();
+  const navigate = useNavigate()
+
+
+
+  return (state.User.default===null ? <div>404</div> :
     <>
     <CreateUser></CreateUser>
     <BottomTeb></BottomTeb>

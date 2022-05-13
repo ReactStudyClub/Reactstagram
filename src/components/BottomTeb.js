@@ -35,11 +35,11 @@ color:#000;
 
 
 function BottomTeb() {
-   console.log("BottomTeb 랜더링")
+
    return (
       <>
       <BottomTebBlock>
-         <Text><Link to="/"><MdHome></MdHome></Link></Text>
+         <Text><Link to="/Home"><MdHome></MdHome></Link></Text>
          <Text><Link to="/about"><MdSearch></MdSearch></Link></Text>
          <Text><Link to="/Profiles"><MdShoppingCart/></Link></Text>
          <Text><Link to="/MyPage"><MdAccountCircle/></Link></Text>

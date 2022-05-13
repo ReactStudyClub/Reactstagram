@@ -70,7 +70,7 @@ function Header() {
       navigate("/Upload");
    }
 
-   console.log("헤더 랜더링");
+
    return (
       <>
          <HeaderBlocknone></HeaderBlocknone>
