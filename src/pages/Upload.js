@@ -3,10 +3,11 @@ import { firebase_db, imageStorage } from "../firebaseConfig"
 import { useTodoState, useTodoDispatch, useUID } from '../ContextApi';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { MdKeyboardBackspace, MdPhotoCamera, MdCheck } from 'react-icons/md';
+import {MdPhotoCamera} from 'react-icons/md';
 import ReactLoading from 'react-loading';
-
-
+import PageHeader from '../components/PageHeader';
+import BottomTeb from '../components/BottomTeb';
+import Inner from '../components/Inner';
 
 const Loading = styled.div`
     position: fixed;
@@ -44,7 +45,7 @@ function Upload() {
     const [url, setUrl] = useState("https://2.bp.blogspot.com/-7fdJ0sJ_QrI/U4W-v8caIpI/AAAAAAAABxo/e7_hvfnNVFU/s1600/img.gif");
 
     const[isReactLoading, setIsReactLoading]= useState(false)
-
+    const imageStorageTime = Date.now()
 
 
     const goBack = () => {
@@ -54,7 +55,7 @@ function Upload() {
         }
     };
 
-       
+
     useEffect(() => {
         
         const onSubmit = async () => {
@@ -134,7 +135,8 @@ function Upload() {
                 date: Date.now(),
                 newDate:new Date(),
                 userPhoto:state.User[uid].Profile.Userphoto,
-                hashtag:null
+                hashtag:null,
+                comment:null
             };
             // Write the new post's data simultaneously in the posts list and the user's post list.
             let updates = {};
@@ -158,12 +160,10 @@ function Upload() {
         {isReactLoading && (<Loading>
         <ReactLoading className='ReactLoading' type={"spin"} />
         </Loading>)}
+        
+        <PageHeader title={'게시물 작성'} check={writeNewPost}></PageHeader>
+        <Inner>
         <UploadBlock>
-            <div className='upLoadHeader'>
-                <MdKeyboardBackspace className='MdKeyboardBackspace' onClick={goBack} />
-                <p>새 게시물</p>
-                <MdCheck className='MdCheck' onClick={writeNewPost}></MdCheck>
-            </div>
             <div className='imageBox'>
                 <form >
                     <label htmlFor="imageLoader" className="button"><MdPhotoCamera style={{ width: '40px', height: '40px' }} /></label>
@@ -178,11 +178,14 @@ function Upload() {
             </div>
 
             <textarea type="text"
+                autoFocus
                 placeholder='내용을 입력해주세요'
                 onChange={getValue}
                 name='postContent' />
             <p className='uploadbtn'>작성 완료</p>
         </UploadBlock>
+        </Inner>
+        <BottomTeb></BottomTeb>
         </>
     )
 }
@@ -196,41 +199,14 @@ const UploadBlock = styled.div`
 
 textarea{
     width: 100%;
-    height: 150px;
+    height: 400px;
     padding: 20px;
     display: flex;
     border: none;
     
     &:focus { outline: none; }
 }
-.upLoadHeader{
-    display: flex;
-    height: 65px;
-    width: 100%;
-    border-bottom: 1px #aaa solid;
-    align-items: center;
-    p{
-        margin: 0;
-        font-size: 21px;
-        font-weight: bold;
-        flex:2;
-    }
-    .MdKeyboardBackspace{
-        height: 35px;
-        width: 35px;
-        margin: 0 10px 0 20px
-    }
-    .MdCheck{
-        width: 35px;
-        height: 35px;
-        margin-right: 20px;
-        color: #5a77f3;
-        &:hover{
-            color: #000;
-        }
-        
-    }
-}
+
 .imageBox form{
     width: 100%;
     height: 120px;

@@ -4,10 +4,9 @@ import useInputs from './useInputs';
 import { firebase_db, imageStorage } from "../firebaseConfig.js"
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { MdKeyboardBackspace, MdPhotoCamera, MdCheck } from 'react-icons/md';
 import FullLoading from './TimeLoading'
-
-
+import PageHeader from '../components/PageHeader';
+import Inner from '../components/Inner';
 
 
 
@@ -18,9 +17,6 @@ const CreateUser = () => {
   const [isReactLoading, setIsReactLoading] = useState(false)
   const dispatch = useTodoDispatch();
   const state = useTodoState();
-
-
-
   const uid = useUID();
   
   const [attachment, setAttachment] = useState(state.User[uid].Profile.Userphoto);
@@ -29,7 +25,7 @@ const CreateUser = () => {
   const goBack = () => {
     const confirm = window.confirm('프로필편집을 취소하시겠습니까??')
     if (confirm) {
-      navigate(-1);
+      navigate(-1 ,);
     }
   };
 
@@ -96,13 +92,13 @@ const CreateUser = () => {
       Introduce: `${text}`,
     });
 
-    // await firebase_db.ref(`/users/${uid}/`).once('value').then((snapshot) => {
-    //   console.log("로그인회원 파이어베이스 조회 성공")
-    //   dispatch({
-    //     type: 'CREATE_USER',
-    //     user: snapshot.val(),
-    //   })
-    // });
+    await firebase_db.ref(`/users/${uid}/`).once('value').then((snapshot) => {
+      console.log("로그인회원 파이어베이스 조회 성공")
+      dispatch({
+        type: 'CREATE_USER',
+        user: snapshot.val(),
+      })
+    });
 
     navigate(-1);
   }
@@ -114,20 +110,15 @@ const CreateUser = () => {
   return (
     <>
     <FullLoading isReactLoading={isReactLoading} ></FullLoading>
+    <PageHeader title={'프로필 편집'} check={profileEditBtn}></PageHeader>
     <ProfileEditBlock>
-      <div className='ProfileEditHeader'>
-        <MdKeyboardBackspace className='MdKeyboardBackspace' onClick={goBack} />
-        <p>프로필 편집</p>
-        <MdCheck type='button' className='MdCheck' onClick={profileEditBtn}></MdCheck>
-      </div>
-
       <div className='imgBlock'>
         <img src={attachment} alt=""></img>
         <label htmlFor="imageLoader" className="button">프로필 사진 변경</label>
         <input id='imageLoader' type='file' accept='image/*' onChange={onFileChange} />
       </div>
       <p>사용자 이름</p>
-      <input className='username' name="username" placeholder="이름" onChange={onChange} value={username} />
+      <input autoFocus  className='username' name="username" placeholder="이름" onChange={onChange} value={username} />
       <p>소개</p>
       <textarea className='text' name="text" placeholder="text" onChange={onChange} value={text} />
     </ProfileEditBlock>
@@ -146,36 +137,6 @@ p{
   margin: 0;
   padding: 10px 0 0 10px;
 }
-
-.ProfileEditHeader{
-  display: flex;
-    height: 65px;
-    width: 100%;
-    border-bottom: 1px #aaa solid;
-    align-items: center;
-    p{
-        margin: 0;
-        font-size: 21px;
-        font-weight: bold;
-        flex:2;
-    }
-    .MdKeyboardBackspace{
-        height: 35px;
-        width: 35px;
-        margin: 0 10px 0 20px;
-        
-    }
-    .MdCheck{
-      margin-right: 20px;
-        width: 35px;
-        height: 35px;
-        color: #5a77f3;
-        &:hover{
-            color: #000;
-        }
-    }
-}
-
 .imgBlock{
   height: 230px;
     display: flex;

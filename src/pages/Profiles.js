@@ -25,15 +25,15 @@ console.log(state[0].id);
     <div>
       <h3>{state[0].id}</h3>
       <ul>
-        <li>
+        {/* <li>
           <NavLink to="/profiles/velopert" style={({ isActive }) => ({ color: isActive ? 'black' : 'white' })}>velopert</NavLink>
         </li>
         <li>
           <NavLink to="/profiles/gildong" className={({ isActive }) => 'nav-link' + (isActive ? ' activated' : '')}>gildong</NavLink>
-        </li>
+        </li> */}
       </ul>
       <Routes>
-  <Route path='/' element='유저를 선택해주세요' />
+  <Route path='/profile/' element='유저를 선택해주세요' />
   <Route path='/:username' element={<Profile/>} />
 </Routes>
 <WithRouterSample />

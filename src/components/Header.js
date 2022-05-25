@@ -1,17 +1,23 @@
 import React from 'react'
 import styled from 'styled-components';
 import {MdFavoriteBorder,MdSend,MdAddCircleOutline} from 'react-icons/md';
+import { BiMessageRounded,BiNavigation} from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
 const HeaderBlock = styled.header`
-   z-index: 9999;
+  @media screen and (min-width: 800px) {
+   z-index: 10;
+   }
+   z-index: 3;
+   top: 0;
    padding: 0 15px 0 15px;
    background: #fff;
    border-bottom: 1px #d8d7d7 solid;
-   height: 60px;
+   min-height: 60px;
    position: fixed;
    width: 100%;
    display: flex;
+   left: 0;
    justify-content: space-between;
    align-items: center;
    
@@ -70,16 +76,19 @@ function Header() {
       navigate("/Upload");
    }
 
+   const goChatList = () =>{
+      navigate("/ChatList");
+   }
+
 
    return (
       <>
-         <HeaderBlocknone></HeaderBlocknone>
          <HeaderBlock>
-            <HeaderTitle>Reactstagram</HeaderTitle>
+            <HeaderTitle>Breeder</HeaderTitle>
             <HeaderRigthZone>
                <HeaderAdd><MdAddCircleOutline onClick={goUpload}></MdAddCircleOutline></HeaderAdd>
                <HeaderLike><MdFavoriteBorder></MdFavoriteBorder></HeaderLike>
-               <Headerchat><MdSend></MdSend></Headerchat>
+               <Headerchat><BiNavigation onClick={goChatList}></BiNavigation></Headerchat>
             </HeaderRigthZone>
          </HeaderBlock>
       </>

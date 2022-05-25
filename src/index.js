@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import ScrollToTop from './components/ScrollToTop'
 import reportWebVitals from './reportWebVitals';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
   <BrowserRouter>
     <App />
   </BrowserRouter>
-</React.StrictMode>
+// </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

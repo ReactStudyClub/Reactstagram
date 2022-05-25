@@ -1,5 +1,4 @@
 import React, { useState, useReducer, createContext, useContext, useRef, useEffect } from 'react'
-import { firebase_db } from "./firebaseConfig.js"
 import { useNavigate } from 'react-router-dom';
 
 
@@ -7,6 +6,7 @@ const initialTodos = {
   User: {
     default: null
   },
+  text:'',
   // User: {
   //   userId: {
   //           Profile: {
@@ -39,11 +39,14 @@ function todoReducer(state, action) {
         ...state,
         User: { [action.user.Profile.Uid]: action.user },
       };
-    // case 'CREATE_USER':
-    //   return {
-    //     ...state,
-    //     User: { [action.user.Profile.Uid]: action.user },
-    //   };
+    case 'CREATE_USER':
+      return {
+        ...state,
+        User: { [action.user.Profile.Uid]: action.user },
+      };
+    case 'textSend':
+      return {...state, text: action.text };
+
     // case 'POST_DELETE':
     //   console.log(action.posts.postKey)
     //         const UserPosts = {...state.User[action.posts.uid].UserPost}
@@ -82,19 +85,19 @@ const TodoDispatchContext = createContext();
 const UIDContext = createContext();
 const SetUIDContext = createContext();
 
+
+
 export function TodoProvider({ children }) {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
-  const nextId = useRef(5);
+  const nextId = useRef();
   const [UID, SetUID] = useState('유저데이터없음');
   useEffect(() => {
-
     if (state === initialTodos) {
       navigate('/');
       console.log('스테이트에 유저 데이터가 없습니다 로딩페이지로 이동합니다.')
     }
-
-  }, [initialTodos])
+  }, [])
 
 
   return (

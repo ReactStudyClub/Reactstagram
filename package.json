@@ -13,6 +13,7 @@
         "gh-pages": "^3.2.3",
         "react": "^18.0.0",
         "react-bootstrap": "^2.2.3",
+        "react-div-100vh": "^0.7.0",
         "react-dom": "^18.0.0",
         "react-icons": "^4.3.1",
         "react-loading": "^2.0.3",
